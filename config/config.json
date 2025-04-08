@@ -1,0 +1,32 @@
+{
+  "Pages": [
+    
+    {
+      "FunSetting": {
+        "Name": "多文件合并"
+      },
+      "StackeSetting": {
+        "Module": "components.megre",
+        "Page": "Megre"
+      }
+    },
+    {
+      "FunSetting": {
+        "Name": "功能2"
+      },
+      "StackeSetting": {
+        "Module": "components.Page2",
+        "Page": "Page2"
+      }
+    },
+    {
+      "FunSetting": {
+        "Name": "功能3"
+      },
+      "StackeSetting": {
+        "Module": "components.Page3",
+        "Page": "Page3"
+      }
+    }
+  ]
+}
