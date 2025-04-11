@@ -1,6 +1,15 @@
 {
+  "NovelConfig": {
+    "FileRegEX": [
+      {
+        "RegEX": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+        "Topic": "^(.+?)\\$(\\d+)-(\\d+)章\\$\\.txt$"
+      }
+    ]
+  },
+
+
   "Pages": [
-    
     {
       "FunSetting": {
         "Name": "多文件合并"
@@ -12,11 +21,11 @@
     },
     {
       "FunSetting": {
-        "Name": "功能2"
+        "Name": "替换"
       },
       "StackeSetting": {
-        "Module": "components.Page2",
-        "Page": "Page2"
+        "Module": "components.ReplaceChapter",
+        "Page": "ReplaceChapter"
       }
     },
     {

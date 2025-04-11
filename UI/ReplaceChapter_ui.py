@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'megre.ui'
+## Form generated from reading UI file 'ReplaceChapter.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -20,12 +20,12 @@ from PySide6.QtWidgets import (QAbstractButton, QApplication, QComboBox, QDialog
     QProgressBar, QPushButton, QRadioButton, QSizePolicy,
     QTextBrowser, QVBoxLayout, QWidget)
 
-class Ui_Megre(object):
-    def setupUi(self, Megre):
-        if not Megre.objectName():
-            Megre.setObjectName(u"Megre")
-        Megre.resize(931, 697)
-        self.verticalLayout_3 = QVBoxLayout(Megre)
+class Ui_ReplaceChapter(object):
+    def setupUi(self, ReplaceChapter):
+        if not ReplaceChapter.objectName():
+            ReplaceChapter.setObjectName(u"ReplaceChapter")
+        ReplaceChapter.resize(629, 520)
+        self.verticalLayout_3 = QVBoxLayout(ReplaceChapter)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -33,38 +33,38 @@ class Ui_Megre(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setHorizontalSpacing(6)
         self.gridLayout.setVerticalSpacing(0)
-        self.srcBtn = QPushButton(Megre)
+        self.srcBtn = QPushButton(ReplaceChapter)
         self.srcBtn.setObjectName(u"srcBtn")
 
         self.gridLayout.addWidget(self.srcBtn, 2, 1, 1, 1)
 
-        self.label = QLabel(Megre)
+        self.label = QLabel(ReplaceChapter)
         self.label.setObjectName(u"label")
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
 
-        self.outputEdit = QLineEdit(Megre)
+        self.outputEdit = QLineEdit(ReplaceChapter)
         self.outputEdit.setObjectName(u"outputEdit")
 
         self.gridLayout.addWidget(self.outputEdit, 3, 0, 1, 1)
 
-        self.fileSeletBtn = QRadioButton(Megre)
+        self.fileSeletBtn = QRadioButton(ReplaceChapter)
         self.fileSeletBtn.setObjectName(u"fileSeletBtn")
 
         self.gridLayout.addWidget(self.fileSeletBtn, 4, 0, 1, 1)
 
-        self.outputBtn = QPushButton(Megre)
+        self.outputBtn = QPushButton(ReplaceChapter)
         self.outputBtn.setObjectName(u"outputBtn")
 
         self.gridLayout.addWidget(self.outputBtn, 3, 1, 1, 1)
 
-        self.srcEdit = QLineEdit(Megre)
+        self.srcEdit = QLineEdit(ReplaceChapter)
         self.srcEdit.setObjectName(u"srcEdit")
 
         self.gridLayout.addWidget(self.srcEdit, 2, 0, 1, 1)
 
-        self.regEXCombo = QComboBox(Megre)
+        self.regEXCombo = QComboBox(ReplaceChapter)
         self.regEXCombo.setObjectName(u"regEXCombo")
 
         self.gridLayout.addWidget(self.regEXCombo, 1, 0, 1, 1)
@@ -74,13 +74,13 @@ class Ui_Megre(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.progressBar = QProgressBar(Megre)
+        self.progressBar = QProgressBar(ReplaceChapter)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setValue(0)
 
         self.horizontalLayout.addWidget(self.progressBar)
 
-        self.putAwayBtn = QPushButton(Megre)
+        self.putAwayBtn = QPushButton(ReplaceChapter)
         self.putAwayBtn.setObjectName(u"putAwayBtn")
 
         self.horizontalLayout.addWidget(self.putAwayBtn)
@@ -93,12 +93,12 @@ class Ui_Megre(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.textBrowser = QTextBrowser(Megre)
+        self.textBrowser = QTextBrowser(ReplaceChapter)
         self.textBrowser.setObjectName(u"textBrowser")
 
         self.verticalLayout_2.addWidget(self.textBrowser)
 
-        self.buttonBox = QDialogButtonBox(Megre)
+        self.buttonBox = QDialogButtonBox(ReplaceChapter)
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Cancel|QDialogButtonBox.StandardButton.Ok)
 
@@ -108,20 +108,20 @@ class Ui_Megre(object):
         self.verticalLayout_3.addLayout(self.verticalLayout_2)
 
 
-        self.retranslateUi(Megre)
+        self.retranslateUi(ReplaceChapter)
 
-        QMetaObject.connectSlotsByName(Megre)
+        QMetaObject.connectSlotsByName(ReplaceChapter)
     # setupUi
 
-    def retranslateUi(self, Megre):
-        Megre.setWindowTitle(QCoreApplication.translate("Megre", u"Form", None))
-        self.srcBtn.setText(QCoreApplication.translate("Megre", u"\u6e90\u6587\u4ef6\u6216\u76ee\u5f55", None))
-        self.label.setText(QCoreApplication.translate("Megre", u"\u6b63\u5219\u8868\u8fbe\u5f0f", None))
-        self.outputEdit.setPlaceholderText(QCoreApplication.translate("Megre", u"./", None))
-        self.fileSeletBtn.setText(QCoreApplication.translate("Megre", u"\u9009\u62e9\u6587\u4ef6", None))
-        self.outputBtn.setText(QCoreApplication.translate("Megre", u"\u8f93\u51fa\u6587\u4ef6", None))
+    def retranslateUi(self, ReplaceChapter):
+        ReplaceChapter.setWindowTitle(QCoreApplication.translate("ReplaceChapter", u"Form", None))
+        self.srcBtn.setText(QCoreApplication.translate("ReplaceChapter", u"\u6e90\u6587\u4ef6\u6216\u76ee\u5f55", None))
+        self.label.setText(QCoreApplication.translate("ReplaceChapter", u"\u6b63\u5219\u8868\u8fbe\u5f0f", None))
+        self.outputEdit.setPlaceholderText(QCoreApplication.translate("ReplaceChapter", u"./", None))
+        self.fileSeletBtn.setText(QCoreApplication.translate("ReplaceChapter", u"\u9009\u62e9\u6587\u4ef6", None))
+        self.outputBtn.setText(QCoreApplication.translate("ReplaceChapter", u"\u8f93\u51fa\u6587\u4ef6", None))
         self.srcEdit.setText("")
-        self.srcEdit.setPlaceholderText(QCoreApplication.translate("Megre", u"./", None))
-        self.putAwayBtn.setText(QCoreApplication.translate("Megre", u"\u6536\u8d77", None))
+        self.srcEdit.setPlaceholderText(QCoreApplication.translate("ReplaceChapter", u"./", None))
+        self.putAwayBtn.setText(QCoreApplication.translate("ReplaceChapter", u"\u6536\u8d77", None))
     # retranslateUi
 

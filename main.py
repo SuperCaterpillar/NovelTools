@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
 from pathlib import Path
 from PySide6.QtCore import Qt
 
+from functions.config import ConfigParser
 
 # 动态加载页面类
 def load_page_class(module_path, class_name):
@@ -29,8 +30,7 @@ class ToolManager(QMainWindow):
 
         # 加载配置文件
         config_path = Path(__file__).parent / "config/config.json"
-        with open(config_path, "r", encoding="utf-8") as f:
-            self.config = json.load(f)
+        config = ConfigParser.parse(config_path)
 
         # 创建主布局
         main_widget = QWidget()
@@ -51,9 +51,9 @@ class ToolManager(QMainWindow):
 
         # 动态生成页面
         self.pages = []
-        for page_config in self.config["Pages"]:
-            module_path = page_config["StackeSetting"]["Module"]
-            class_name = page_config["StackeSetting"]["Page"]
+        for page_config in config.pages:
+            module_path = page_config.stack_setting.Module
+            class_name = page_config.stack_setting.Page
             page_class = load_page_class(module_path, class_name)
             
             if page_class:
@@ -61,7 +61,7 @@ class ToolManager(QMainWindow):
                 self.pages_container.addWidget(page)
                 self.function_list.addItem(
                   #   QIcon(page_config.get("icon", "")),
-                    page_config["FunSetting"]["Name"]
+                    page_config.fun_setting.Name
                 )
         
         self.function_list.currentRowChanged.connect(
@@ -72,8 +72,10 @@ class ToolManager(QMainWindow):
         # 设置主窗口的中心部件
         main_widget.setLayout(QHBoxLayout())
         main_widget.layout().addWidget(self.splitter)
+        
 
 if __name__ == "__main__":
+    
     sys.path.append(str(Path(__file__).parent.parent))  
     app = QApplication(sys.argv)
     window = ToolManager()

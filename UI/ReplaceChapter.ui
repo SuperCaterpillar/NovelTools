@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Megre</class>
- <widget class="QWidget" name="Megre">
+ <class>ReplaceChapter</class>
+ <widget class="QWidget" name="ReplaceChapter">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>931</width>
-    <height>697</height>
+    <width>629</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
