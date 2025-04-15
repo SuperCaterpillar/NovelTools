@@ -1,0 +1,66 @@
+{
+  "NovelConfig": {
+    "MergeRegEx": [
+      {
+        "RegEX": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+        "Topic": "合并 xxx(num-num)章.txt 类型"
+      }
+    ],
+    "ReplaceRegEx": [
+      {
+        "RegEX": "^(.+?)\\((\\d+)章\\)\\.txt$",
+        "Topic": "替换 xxx(num)章.txt 类型"
+      }
+    ],
+    "chaptersRegEx": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "Pages": [
+    {
+      "FunSetting": {
+        "Name": "多文件合并"
+      },
+      "StackeSetting": {
+        "Module": "components.megre",
+        "Page": "Megre",
+        "DefaultData": {
+          "MergeRegEx": [
+            {
+              "RegEX": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+              "Topic": "合并 xxx(num-num)章.txt 类型"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "FunSetting": {
+        "Name": "替换"
+      },
+      "StackeSetting": {
+        "Module": "components.ReplaceChapter",
+        "Page": "ReplaceChapter",
+        "DefaultData": {
+          "ReplaceRegEx": [
+            {
+              "RegEX": "^(.+?)\\((\\d+)章\\)\\.txt$",
+              "Topic": "替换 xxx(num)章.txt 类型"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "FunSetting": {
+        "Name": "txt导出到数据库"
+      },
+      "StackeSetting": {
+        "Module": "components.Page3",
+        "Page": "Page3"
+      }
+    }
+  ]
+}

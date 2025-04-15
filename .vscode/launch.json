@@ -10,9 +10,11 @@
         "type": "debugpy",
         "request": "launch",
         "program": "${workspaceFolder}/main.py",
+        // "program": "${file}",
         "console": "integratedTerminal",
         "subProcess": true,
         "justMyCode": false,
+        
       }
     ]
   }

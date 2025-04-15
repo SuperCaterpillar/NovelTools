@@ -1,34 +1,21 @@
 from PySide6.QtWidgets import (
-    QAbstractButton,
-    QApplication,
-    QDialogButtonBox,
-    QHBoxLayout,
-    QLineEdit,
-    QProgressBar,
-    QPushButton,
-    QSizePolicy,
-    QTextBrowser,
-    QVBoxLayout,
     QWidget,
     QFileDialog,
     QMessageBox,
 )
 from PySide6.QtCore import QObject, Signal, Slot, QThread, Qt
-from UI.megre_ui import Ui_Megre
-import os
-import re
-import sys
-from collections import defaultdict
-from functions.config import ConfigParser
-from pathlib import Path
+
+
+from UI.merge_ui import Ui_Merge
 from functions.megre_work import MergeWorker
+from components.base_page import BasePage
 
 
-class Megre(QWidget):
+class Merge(BasePage):
 
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_Megre()
+    def __init__(self,config:str):
+        super().__init__(config)
+        self.ui = Ui_Merge()
         self.ui.setupUi(self)
 
         sizePolichy = self.ui.textBrowser.sizePolicy()
@@ -44,14 +31,14 @@ class Megre(QWidget):
 
         self.worker_thread = None
 
-        config_path = "config/config.json"
-        config = ConfigParser.parse(config_path)
+        # config_path = "config/config.json"
+        # config = ConfigParser.parse(config_path)
 
-        for reg_ex in config.novel_config.name_reg_ex:
-            self.ui.regEXCombo.addItem(reg_ex.regex)
-            # self.ui.regEXCombo.setToolTip()
-
-        
+        # for reg_ex in config.novel_config.name_reg_ex:
+        #     self.ui.regEXCombo.addItem(reg_ex.regex)
+        #     # self.ui.regEXCombo.setToolTip()
+    def _parse_config(self):
+        pass
     def fileSelectToggled(self, flag):
         if self.ui.fileSeletBtn.isChecked():
             self.ui.regEXCombo.setEnabled(True)
@@ -110,11 +97,10 @@ class Megre(QWidget):
 
         self.worker_thread.finished.connect(self.worker_thread.deleteLater)
 
-
         self.worker.moveToThread(self.worker_thread)
         self.worker_thread.started.connect(self.worker.do_merge)
         self.worker.finished.connect(self.worker_thread.quit)
-        
+
         self.worker_thread.start()
 
     def show_error(self, error_msg):

@@ -1,0 +1,42 @@
+{
+  "pages": {
+    "merge": {
+      "component": {
+        "module_path": "components.merge",
+        "class_name": "Merge",
+        "func_name": "合并文件"
+      },
+      "config": {
+        "merge_reg_ex": [
+          {
+            "reg_ex": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+            "topic": "合并 xxx(num-num)章.txt 类型"
+          }
+        ]
+      }
+    },
+    "replace_chapter": {
+      "component": {
+        "module_path": "components.replace_chapter",
+        "class_name": "ReplaceChapter",
+        "func_name": "替换文件"
+      },
+      "config": {
+        "replace_reg_ex": [
+          {
+            "RegEX": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+            "Topic": "合并 xxx(num-num)章.txt 类型"
+          }
+        ]
+      }
+    },
+    "Page3": {
+      "component": {
+        "module_path": "components.Page3",
+        "class_name": "Page3",
+        "func_name": "导出文件"
+      },
+      "config": {}
+    }
+  }
+}

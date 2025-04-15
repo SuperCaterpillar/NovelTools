@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (
 from pathlib import Path
 from PySide6.QtCore import Qt
 
-from functions.config import ConfigParser
+from functions.config import PagesConfigParser
 
 # 动态加载页面类
 def load_page_class(module_path, class_name):
@@ -19,8 +19,6 @@ def load_page_class(module_path, class_name):
         print(f"加载页面失败: {module_path}.{class_name} - {str(e)}")
         return None
     
-
-
         
 class ToolManager(QMainWindow):
     def __init__(self):
@@ -29,8 +27,8 @@ class ToolManager(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
 
         # 加载配置文件
-        config_path = Path(__file__).parent / "config/config.json"
-        config = ConfigParser.parse(config_path)
+        config_path = Path(__file__).parent / "config/pages.json"
+        config = PagesConfigParser.parse(config_path)
 
         # 创建主布局
         main_widget = QWidget()
@@ -51,17 +49,17 @@ class ToolManager(QMainWindow):
 
         # 动态生成页面
         self.pages = []
-        for page_config in config.pages:
-            module_path = page_config.stack_setting.Module
-            class_name = page_config.stack_setting.Page
+        for name, page_config in config.pages.items():
+            module_path = page_config.component.module_path
+            class_name = page_config.component.class_name
             page_class = load_page_class(module_path, class_name)
             
             if page_class:
-                page = page_class()
+                page = page_class(page_config.config)
                 self.pages_container.addWidget(page)
                 self.function_list.addItem(
                   #   QIcon(page_config.get("icon", "")),
-                    page_config.fun_setting.Name
+                    page_config.component.func_name
                 )
         
         self.function_list.currentRowChanged.connect(

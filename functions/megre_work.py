@@ -4,7 +4,7 @@ import re
 from collections import defaultdict
 
 from PySide6.QtCore import QObject, Signal, Slot
-from functions.config import RootConfig
+# from functions.config import RootConfig
 
 
 class MergeWorker(QObject):
