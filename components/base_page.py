@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget
-
+from functions.config import Config
 
 class BasePage(QWidget):
     def __init__(self, config: str):

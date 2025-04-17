@@ -7,7 +7,7 @@ from typing import Dict, List, Any
 
 @dataclass
 class Config:
-    config_dict: dict = field(default_factory=dict)
+    data: dict = field(default_factory=dict)
 
 
 @dataclass
@@ -38,13 +38,15 @@ class PagesConfigParser:
         root = PageRootConfig()
 
         for page_name, page_data in config_dict.get("pages", {}).items():
-            compoent_node = page_data.get("component", {})
-            component = Component(
-                module_path=compoent_node.get("module_path", ""),
-                class_name=compoent_node.get("class_name", ""),
-                func_name=compoent_node.get("func_name", ""),
-            )
-            page_config = Config(config_dict=page_data.get("config", {}))
+            # compoent_node = page_data.get("component", {})
+            # component = Component(
+            #     module_path=compoent_node.get("module_path", ""),
+            #     class_name=compoent_node.get("class_name", ""),
+            #     func_name=compoent_node.get("func_name", ""),
+            # )
+
+            component = Component(**page_data['component'])
+            page_config = Config(data=page_data.get("config", {}))
 
             root.pages[page_name] = Page(component=component, config=page_config)
 

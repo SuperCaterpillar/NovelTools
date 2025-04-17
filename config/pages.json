@@ -24,19 +24,31 @@
       "config": {
         "replace_reg_ex": [
           {
-            "RegEX": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
-            "Topic": "合并 xxx(num-num)章.txt 类型"
+            "reg_ex": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+            "topic": "合并 xxx(num-num)章.txt 类型"
           }
         ]
       }
     },
-    "Page3": {
+    "export_sql": {
       "component": {
-        "module_path": "components.Page3",
-        "class_name": "Page3",
+        "module_path": "components.export_sql",
+        "class_name": "ExportSql",
         "func_name": "导出文件"
       },
-      "config": {}
+      "config": {
+        "chapter_reg_ex": [
+          {
+            "reg_ex": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+            "topic": "合并 xxx(num-num)章.txt 类型"
+          },
+          {
+            "reg_ex": "^(.+?)\\((\\d+)-(\\d+)章\\)\\.txt$",
+            "topic": "合并 xxx(num-num)章.txt 类型"
+          }
+        ]
+        
+      }
     }
   }
 }

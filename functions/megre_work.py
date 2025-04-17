@@ -4,7 +4,6 @@ import re
 from collections import defaultdict
 
 from PySide6.QtCore import QObject, Signal, Slot
-# from functions.config import RootConfig
 
 
 class MergeWorker(QObject):
@@ -12,6 +11,7 @@ class MergeWorker(QObject):
     status = Signal(str)
     finished = Signal()
     error = Signal(str)
+    fileTotal = Signal(int)
 
     # {novel_name: [(start, end, filepath),...],...}
     def __init__(
@@ -37,20 +37,23 @@ class MergeWorker(QObject):
     @property
     def IsCannelled(self):
         return self._is_cannelled
-    
+
     def Cannelled(self):
         self._is_cannelled = True
 
-    def get_all_file(self) -> defaultdict[list]:
+    def get_all_file(self, input_path: str = None) -> defaultdict[list]:
         if not os.path.isdir(self._input_path):
-            self.error.emit("没有输入目录")
-            return None
+            if not os.path.isdir(input_path):
+                self.error.emit("没有输入目录")
+                return None
+        if input_path is None:
+            input_path = self._input_path
 
         pattern = re.compile(self._file_RegEx)
 
         self._fileDict = defaultdict(list)
-        for filename in os.listdir(self._input_path):
-            filepath = os.path.join(self._input_path, filename)
+        for filename in os.listdir(input_path):
+            filepath = os.path.join(input_path, filename)
             if not os.path.isfile(filepath):
                 continue
             match = pattern.match(filename)
@@ -87,9 +90,10 @@ class MergeWorker(QObject):
             self.error.emit("文件名匹配失败")
             return
         signalFile = defaultdict(list)
-        signalFile[novel_name].extend(self.get_all_file()[novel_name])
+
+        signalFile[novel_name].extend(self.get_all_file(input_dir)[novel_name])
         self._fileDict = signalFile
-        return self._fileDict 
+        return self._fileDict
 
     def get_file_count(self, files: defaultdict[list]) -> int:
         total = 0
@@ -124,7 +128,9 @@ class MergeWorker(QObject):
                         self._progressCount = self._progressCount + 1
                         self.progress.emit(self._progressCount)
                 except Exception as e:
-                    self.error.emit(f"处理 {os.path.basename(filepath)} 时出错：{str(e)}")
+                    self.error.emit(
+                        f"处理 {os.path.basename(filepath)} 时出错：{str(e)}"
+                    )
                     return False
 
             self.status.emit(f"合并完成！总章节数：{total_chapters}")
@@ -132,17 +138,16 @@ class MergeWorker(QObject):
 
     def init(self):
         self.merge_filse_list()
-
-
-
+        total = self.get_file_count(self._fileDict)
+        self.fileTotal.emit(total)
 
     @Slot()
     def do_merge(self):
-        # self.merge_filse_list()
+
         self._progressCount = 0
-        print(self._fileDict)
+
         for novel_name, files in self._fileDict.items():
-            
+
             self.merge_file(novel_name, files)
-       
+
         self.finished.emit()

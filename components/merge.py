@@ -9,11 +9,23 @@ from PySide6.QtCore import QObject, Signal, Slot, QThread, Qt
 from UI.merge_ui import Ui_Merge
 from functions.megre_work import MergeWorker
 from components.base_page import BasePage
+from dataclasses import dataclass, field
+
+
+@dataclass
+class MergeRegEx:
+    regex: str = ""
+    topic: str = ""
+
+
+@dataclass
+class MergePageConfig:
+    name_reg_ex: list[MergeRegEx] = field(default_factory=list)
 
 
 class Merge(BasePage):
 
-    def __init__(self,config:str):
+    def __init__(self, config: str):
         super().__init__(config)
         self.ui = Ui_Merge()
         self.ui.setupUi(self)
@@ -34,11 +46,17 @@ class Merge(BasePage):
         # config_path = "config/config.json"
         # config = ConfigParser.parse(config_path)
 
-        # for reg_ex in config.novel_config.name_reg_ex:
-        #     self.ui.regEXCombo.addItem(reg_ex.regex)
-        #     # self.ui.regEXCombo.setToolTip()
+        for reg_ex in self.merge_page_config.name_reg_ex:
+            self.ui.regEXCombo.addItem(reg_ex.regex)
+            # self.ui.regEXCombo.setToolTip()
+
     def _parse_config(self):
-        pass
+        self.merge_page_config = MergePageConfig()
+        for item in self.config.data.get("merge_reg_ex", []):
+            reg = item.get("reg_ex", "")
+            topic = item.get("topic", "")
+            self.merge_page_config.name_reg_ex.append(MergeRegEx(regex=reg, topic=topic))
+
     def fileSelectToggled(self, flag):
         if self.ui.fileSeletBtn.isChecked():
             self.ui.regEXCombo.setEnabled(True)
@@ -55,7 +73,7 @@ class Merge(BasePage):
         self.ui.srcEdit.setText(fileName)
 
     def selectOutputFile(self):
-        fileName = QFileDialog.getExistingDirectory(self, "选择输出文件夹", "./")
+        fileName = QFileDialog.getExistingDirectory(self, "选择输出文件夹", "./tmp")
         self.ui.outputEdit.setText(fileName)
 
     def cancel_merge(self):
@@ -65,6 +83,7 @@ class Merge(BasePage):
             self.ui.textBrowser.append("已发送取消请求...")
 
     def start(self):
+        
         input_dir = self.ui.srcEdit.text()
         output_dir = self.ui.outputEdit.text()
         fileRegEx = self.ui.regEXCombo.currentText()
@@ -83,14 +102,17 @@ class Merge(BasePage):
                 f"未选择输出文件夹，使用默认输出文件夹：{output_dir}"
             )
 
+        self.ui.textBrowser.clear()
+
         # if self.worker_thread and self.worker_thread.isRunning():
         #     self.show_error("线程已在运行中")
         #     return
         self.worker_thread = QThread(self)
         self.worker = MergeWorker(output_dir, input_dir, fileRegEx, is_single_file)
-        self.worker.init()
+        
 
         self.worker.finished.connect(self.worker.deleteLater)
+        self.worker.fileTotal.connect(lambda total: self.ui.progressBar.setMaximum(total))
         self.worker.progress.connect(self.ui.progressBar.setValue)
         self.worker.status.connect(self.ui.textBrowser.append)
         self.worker.error.connect(self.show_error)
@@ -100,7 +122,7 @@ class Merge(BasePage):
         self.worker.moveToThread(self.worker_thread)
         self.worker_thread.started.connect(self.worker.do_merge)
         self.worker.finished.connect(self.worker_thread.quit)
-
+        self.worker.init()
         self.worker_thread.start()
 
     def show_error(self, error_msg):
